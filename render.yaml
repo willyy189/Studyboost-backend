@@ -7,4 +7,4 @@ services:
     startCommand: "gunicorn main:app"
     envVars:
       - key: OPENAI_API_KEY
-        value: YOUR_OPENAI_KEY
+        sync: false
