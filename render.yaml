@@ -3,8 +3,7 @@ services:
     name: studyboost-api
     env: python
     plan: free
-    buildCommand: ""
     startCommand: "python main.py"
     envVars:
       - key: OPENAI_API_KEY
-        value: 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
+        sync: false
