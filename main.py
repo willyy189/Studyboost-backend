@@ -3,6 +3,7 @@ import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+# A chave da OpenAI vem da variável de ambiente
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__)
@@ -11,7 +12,10 @@ CORS(app)
 @app.route('/processar', methods=['POST'])
 def processar_texto():
     data = request.json
-    texto = data['texto']
+    texto = data.get('texto', '')
+
+    if not texto:
+        return jsonify({"erro": "Texto não fornecido"}), 400
 
     prompt = f"""
     Texto: {texto}
@@ -22,10 +26,14 @@ def processar_texto():
     3. 5 perguntas de estudo para autoavaliação
     """
 
-    resposta = openai.ChatCompletion.create(
-        model="gpt-4-turbo",
-        messages=[{"role": "user", "content": prompt}]
-    )
+    try:
+        resposta = openai.ChatCompletion.create(
+            model="gpt-4-turbo",
+            messages=[{"role": "user", "content": prompt}]
+        )
 
-    resultado = resposta.choices[0].message.content
-    return jsonify({"resultado": resultado})
+        resultado = resposta.choices[0].message.content
+        return jsonify({"resultado": resultado})
+
+    except Exception as e:
+        return jsonify({"erro": str(e)}), 500
