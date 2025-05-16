@@ -34,6 +34,3 @@ def processar_texto():
 
         resultado = resposta.choices[0].message.content
         return jsonify({"resultado": resultado})
-
-    except Exception as e:
-        return jsonify({"erro": str(e)}), 500
