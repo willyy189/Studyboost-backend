@@ -3,6 +3,7 @@ import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+# A chave agora vem da variável de ambiente
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__)
