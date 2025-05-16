@@ -1,9 +1,7 @@
 services:
   - type: web
-    name: studyboost-api
+    name: eduspark-ai
     env: python
     plan: free
-    startCommand: "python main.py"
-    envVars:
-      - key: OPENAI_API_KEY
-        sync: false
+    buildCommand: ""
+    startCommand: "gunicorn main:app"
