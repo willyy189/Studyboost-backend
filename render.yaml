@@ -1,7 +1,10 @@
 services:
   - type: web
-    name: eduspark-ai
+    name: eduspark-api
     env: python
     plan: free
     buildCommand: ""
     startCommand: "gunicorn main:app"
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
